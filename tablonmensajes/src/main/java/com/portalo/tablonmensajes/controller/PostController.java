@@ -1,8 +1,17 @@
 package com.portalo.tablonmensajes.controller;
 
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
+@RequestMapping("Post")
 public class PostController {
 
+	@GetMapping("get")
+	private ResponseEntity<Object> getPost() {
+		
+		return ResponseEntity.ok("Todo Okey");
+	}
 }
