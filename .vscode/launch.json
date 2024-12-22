@@ -1,0 +1,14 @@
+{
+    "configurations": [
+        {
+            "type": "java",
+            "name": "Spring Boot-TablonmensajesApplication<tablonmensajes>",
+            "request": "launch",
+            "cwd": "${workspaceFolder}",
+            "mainClass": "com.portalo.tablonmensajes.TablonmensajesApplication",
+            "projectName": "tablonmensajes",
+            "args": "",
+            "envFile": "${workspaceFolder}/.env"
+        }
+    ]
+}
