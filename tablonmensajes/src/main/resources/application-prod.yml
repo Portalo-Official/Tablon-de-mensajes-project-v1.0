@@ -1,0 +1,22 @@
+
+
+#spring:
+#  profiles: prod
+#  datasource:
+#    url: jdbc:mysql://<PROD_DB_HOST>:3306/proddb
+#    driver-class-name: com.mysql.cj.jdbc.Driver
+#    username: <PROD_DB_USER>
+#    password: <PROD_DB_PASSWORD>
+#  jpa:
+#    hibernate:
+#      ddl-auto: none
+#logging:
+#  level:
+#    root: INFO # Nivel de logging para producción
+#  file:
+#    name: logs/tablon-mensajes.log # Archivo donde guardar logs en producción
+#  pattern:
+#    console: "%d{yyyy-MM-dd HH:mm:ss} %-5level %logger{36} - %msg%n" # Formato de consola
+#    file: "%d{yyyy-MM-dd HH:mm:ss} %-5level %logger{36} - %msg%n" # Formato de archivo
+#server:
+#  port: 8080 # Puerto para el entorno de producción

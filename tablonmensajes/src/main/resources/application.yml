@@ -1,1 +1,9 @@
-spring.application.name=tablonmensajes
+server:
+  servlet:
+    context-path: /api # URL base para la aplicación
+
+spring:
+  application:
+    name: tablon-mensajes # Nombre de la aplicación
+  profiles:
+    active: dev
