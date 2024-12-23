@@ -8,9 +8,14 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 @RequestMapping("Post")
 public class PostController {
-
+	
+	
+	/**
+	 * <h1>REQ_P_006 Consultar Post por Referencia</h1>
+	 * @return
+	 */
 	@GetMapping("get")
-	private ResponseEntity<Object> getPost() {
+	private ResponseEntity<Object> getPostPorReferencia() {
 		
 		return ResponseEntity.ok("Todo Okey");
 	}
