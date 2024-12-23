@@ -10,7 +10,7 @@ import lombok.Getter;
 
 @Getter
 @Entity
-@Table(name="TB_MENSAJE")
+@Table(name="TB_MENSAJES")
 public class Mensaje {
 	@Id
 	private Long id;
@@ -22,4 +22,13 @@ public class Mensaje {
 	//RELACIONES
 	private Long postId;
 	private Long usuarioId;
+
+	public Mensaje(String uuid, String contenido, LocalDate fechaPublicacion, Long postId, Long usuarioId) {
+		super();
+		this.uuid = uuid;
+		this.contenido = contenido;
+		this.fechaPublicacion = fechaPublicacion;
+		this.postId = postId;
+		this.usuarioId = usuarioId;
+	}
 }
