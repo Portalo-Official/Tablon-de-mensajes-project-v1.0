@@ -13,7 +13,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
-public class PostResponseDTO {
+public class PostDetailDTO {
 	@JsonProperty("post_reference")
 	private String uuid;
 	@JsonProperty("title")
