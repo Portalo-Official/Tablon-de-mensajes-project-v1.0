@@ -1,4 +1,4 @@
-package com.portalo.tablonmensajes.model.dto.request;
+package com.portalo.tablonmensajes.model.dto.response;
 
 import java.time.LocalDate;
 
@@ -10,12 +10,18 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 @Data
-public class PostRequestDTO {
+@AllArgsConstructor
+@NoArgsConstructor
+@Builder
+public class PostDetailDTO {
 	@JsonProperty("post_reference")
 	private String uuid;
 	@JsonProperty("title")
 	private String titulo;
 	@JsonProperty("body")
 	private String contenido;
-	
+	@JsonProperty("publish_date")
+	private LocalDate fechaPublicacion;
+	@JsonProperty("usuario_resume")
+	private UsuarioResumeDTO usuario;
 }
