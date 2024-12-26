@@ -6,7 +6,8 @@ import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
-
+import lombok.Getter;
+@Getter
 @Entity
 @Table(name="TB_POSTS")
 public class Post {
@@ -20,6 +21,8 @@ public class Post {
 	private LocalDate fechaPublicacion;
 	
 	private Long usuarioId;
+	
+	private Usuario usuario;
 
 	public Post( String uuid, String titulo, String contenido, LocalDate fechaPublicacion, Long usuarioId) {
 		super();
