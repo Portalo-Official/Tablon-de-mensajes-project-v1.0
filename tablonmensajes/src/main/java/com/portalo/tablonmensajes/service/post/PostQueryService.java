@@ -1,7 +1,7 @@
 package com.portalo.tablonmensajes.service.post;
 
-import com.portalo.tablonmensajes.model.dto.response.PostResponseDTO;
+import com.portalo.tablonmensajes.model.dto.response.PostDetailDTO;
 
 public interface PostQueryService {
-	public PostResponseDTO buscarPostPorReferencia(String referencia);
+	public PostDetailDTO buscarPostPorReferencia(String referencia);
 }

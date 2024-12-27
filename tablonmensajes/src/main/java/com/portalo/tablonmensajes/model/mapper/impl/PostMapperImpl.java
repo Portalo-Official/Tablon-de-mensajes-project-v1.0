@@ -3,11 +3,13 @@ package com.portalo.tablonmensajes.model.mapper.impl;
 
 import java.util.Objects;
 
+import org.springframework.stereotype.Component;
+
 import com.portalo.tablonmensajes.model.dto.response.PostDetailDTO;
 import com.portalo.tablonmensajes.model.dto.response.UsuarioResumeDTO;
 import com.portalo.tablonmensajes.model.entity.Post;
 import com.portalo.tablonmensajes.model.mapper.PostMapper;
-
+@Component
 public class PostMapperImpl implements PostMapper {
 
 	@Override
