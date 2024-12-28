@@ -1,6 +1,7 @@
 package com.portalo.tablonmensajes.model.dto.response;
 
 import java.time.LocalDate;
+import java.util.List;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 
@@ -24,4 +25,6 @@ public class PostDetailDTO {
 	private LocalDate fechaPublicacion;
 	@JsonProperty("usuario_resume")
 	private UsuarioResumeDTO usuario;
+	
+	private List<CategoriaDTO> categorias;
 }
