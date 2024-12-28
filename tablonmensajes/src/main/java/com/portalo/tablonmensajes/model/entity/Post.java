@@ -14,9 +14,11 @@ import jakarta.persistence.ManyToMany;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 @Getter
 @Entity
 @Table(name="TB_POSTS")
+@NoArgsConstructor
 public class Post {
 	
 	@Id
