@@ -16,7 +16,7 @@ CREATE TABLE TB_POSTS (
     uuid VARCHAR(18) NOT NULL UNIQUE,
     titulo VARCHAR(100) NOT NULL,
     contenido TEXT NOT NULL,
-    fecha_publicacion DATETIME NOT NULL,
+    fecha_publicacion TIMESTAMP NOT NULL,
     usuario_id INT NOT NULL,
     CONSTRAINT fk_posts_usuarios FOREIGN KEY (usuario_id) REFERENCES TB_USUARIOS(id)
 );
@@ -25,8 +25,8 @@ CREATE TABLE TB_POSTS (
 CREATE TABLE TB_MENSAJES (
     id BIGINT AUTO_INCREMENT PRIMARY KEY,
     uuid VARCHAR(18) NOT NULL UNIQUE,
-    contenido VARCHAR(200) NOT NULL,
-    fecha_publicacion DATETIME NOT NULL,
+    contenido VARCHAR(400) NOT NULL,
+    fecha_publicacion TIMESTAMP NOT NULL,
     post_id INT NOT NULL,
     usuario_id INT NOT NULL,
     CONSTRAINT fk_mensajes_posts FOREIGN KEY (post_id) REFERENCES TB_POSTS(id),

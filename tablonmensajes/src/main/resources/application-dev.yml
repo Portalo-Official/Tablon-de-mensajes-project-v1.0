@@ -2,17 +2,18 @@
 
 spring:
   datasource:
-    url: jdbc:h2:mem:devdb;DB_CLOSE_ON_EXIT=FALSE
+    url: jdbc:h2:mem:devdb;DB_CLOSE_ON_EXIT=FALSE;DB_CLOSE_DELAY=-1
     driver-class-name: org.h2.Driver
     username: sa
-    password: password
+    password:
   jpa:
     database-platform: org.hibernate.dialect.H2Dialect
     hibernate:
-      ddl-auto: create
+      ddl-auto: none
     show-sql: true
-  h2:
-    console.enabled: true
   sql:
     init:
-      mode: always
+      mode: embedded
+  h2:
+    console.enabled: true
+    

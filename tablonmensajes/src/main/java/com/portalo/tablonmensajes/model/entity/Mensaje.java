@@ -7,10 +7,12 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 
 @Getter
 @Entity
 @Table(name="TB_MENSAJES")
+@NoArgsConstructor
 public class Mensaje {
 	@Id
 	private Long id;
