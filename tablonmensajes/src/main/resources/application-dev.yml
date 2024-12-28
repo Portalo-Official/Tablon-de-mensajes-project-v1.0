@@ -9,10 +9,11 @@ spring:
   jpa:
     database-platform: org.hibernate.dialect.H2Dialect
     hibernate:
-      ddl-auto: create
+      ddl-auto: none
     show-sql: true
-  h2:
-    console.enabled: true
   sql:
     init:
-      mode: always
+      mode: embedded
+  h2:
+    console.enabled: true
+    
