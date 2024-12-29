@@ -7,7 +7,22 @@ import lombok.experimental.UtilityClass;
 
 @UtilityClass
 public class ErroresUtils {
+	
+	public enum TipoErrores{
+		MANDATORY("MANDATORY"),
+		DOMAIN("DOMAIN");
+		
+		private String tipoError;
 
+		private TipoErrores(String tipoError) {
+			this.tipoError = tipoError;
+		}
+		
+		public static boolean containsTipoError(String campo, TipoErrores tipoError) {
+			return campo.toUpperCase().contains(tipoError.name());
+		}
+	}
+	
 	public enum ErroresMandatory {
 		ID_POST("EM0001", "La referencia del post es obligatoria");
 		@Getter
