@@ -11,7 +11,7 @@ import jakarta.validation.Payload;
 
 @Documented
 @Constraint(validatedBy = { ReferenciaDomainValidator.class })
-@Target({ ElementType.FIELD, ElementType.METHOD })
+@Target({ ElementType.FIELD, ElementType.METHOD, ElementType.PARAMETER})
 @Retention(RetentionPolicy.RUNTIME)
 public @interface ReferenciaDomain {
 

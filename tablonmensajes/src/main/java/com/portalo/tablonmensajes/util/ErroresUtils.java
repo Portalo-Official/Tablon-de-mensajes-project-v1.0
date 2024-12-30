@@ -1,5 +1,8 @@
 package com.portalo.tablonmensajes.util;
 
+import java.util.Arrays;
+import java.util.function.Supplier;
+
 import com.portalo.tablonmensajes.model.validation.ErrorValidacion;
 
 import lombok.Getter;
@@ -19,8 +22,10 @@ public class ErroresUtils {
 		}
 		
 		public static boolean containsTipoError(String campo, TipoErrores tipoError) {
-			return campo.toUpperCase().contains(tipoError.name());
+			return campo.contains(tipoError.name());
 		}
+
+		
 	}
 	
 	public enum ErroresMandatory {
@@ -40,6 +45,20 @@ public class ErroresUtils {
 								.descripcion(error.getDescripcion())
 								.build();
 		}
+		
+		public static ErrorValidacion parseToErrorValicacion(String mensajeError) {
+			
+			return Arrays.asList(ErroresMandatory.values()).stream()
+													.filter(error -> mensajeError.equalsIgnoreCase(error.getCodigo()))
+													.map(error ->{
+														return ErrorValidacion.builder()
+																.codigo(error.getCodigo())
+																.descripcion(error.getDescripcion())
+																.build();
+													})
+													.findFirst()
+													.orElseThrow();
+		}
 	}
 		
 	public enum ErroresDomain{
@@ -58,6 +77,19 @@ public class ErroresUtils {
 								.codigo(error.getCodigo())
 								.descripcion(error.getDescripcion())
 								.build();
+		}
+		
+		public static ErrorValidacion parseToErrorValicacion(String mensajeError) {
+			return Arrays.asList(ErroresDomain.values()).stream()
+															.filter(error -> mensajeError.equalsIgnoreCase(error.getCodigo()))
+															.map(error ->{
+																return ErrorValidacion.builder()
+																		.codigo(error.getCodigo())
+																		.descripcion(error.getDescripcion())
+																		.build();
+															})
+															.findFirst()
+															.orElse(null);
 		}
 	}
 }
