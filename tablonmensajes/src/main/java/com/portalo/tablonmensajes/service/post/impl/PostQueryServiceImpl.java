@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 
 import com.portalo.tablonmensajes.model.dto.response.CategoriaDTO;
 import com.portalo.tablonmensajes.model.dto.response.PostDetailDTO;
+import com.portalo.tablonmensajes.model.dto.response.PostResumeDTO;
 import com.portalo.tablonmensajes.model.dto.response.UsuarioResumeDTO;
 import com.portalo.tablonmensajes.model.entity.Post;
 import com.portalo.tablonmensajes.model.mapper.CategoriaMapper;
@@ -34,6 +35,12 @@ public class PostQueryServiceImpl implements PostQueryService {
 			UsuarioResumeDTO usuarioResume= usuarioMapper.entityToResume(postOptional.get().getUsuario());
 			return postMapper.postToPostDetailDTO(postOptional.get(), usuarioResume, categoriasDto);
 		}
+		return null;
+	}
+	
+	@Override
+	public PostResumeDTO buscarPostPorUsuario(String referenciaUsuario) {
+		// TODO Auto-generated method stub
 		return null;
 	}
 
