@@ -23,23 +23,15 @@ import lombok.AllArgsConstructor;
 public class PostQueryServiceImpl implements PostQueryService {
 
 	private final PostRepositroy postRepositroy;
-	private final PostMapper postMapper;
-	private final UsuarioMapper usuarioMapper;
-	private final CategoriaMapper categoriaMapper;
+	
 	@Override
-	public PostDetailDTO buscarPostPorReferencia(String referencia) {
+	public Post buscarPostPorReferencia(String referencia) {
 		Optional<Post> postOptional = this.postRepositroy.buscarPostPorReferencia(referencia);
-		if(postOptional.isPresent()) {
-			
-			List<CategoriaDTO> categoriasDto=  categoriaMapper.entityListToDtoList(postOptional.get().getCategorias());
-			UsuarioResumeDTO usuarioResume= usuarioMapper.entityToResume(postOptional.get().getUsuario());
-			return postMapper.postToPostDetailDTO(postOptional.get(), usuarioResume, categoriasDto);
-		}
-		return null;
+		return postOptional.orElse(null);
 	}
 	
 	@Override
-	public PostResumeDTO buscarPostPorUsuario(String referenciaUsuario) {
+	public Post buscarPostPorUsuario(String referenciaUsuario) {
 		// TODO Auto-generated method stub
 		return null;
 	}
