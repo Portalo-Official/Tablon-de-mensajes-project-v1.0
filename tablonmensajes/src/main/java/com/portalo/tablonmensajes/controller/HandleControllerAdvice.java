@@ -41,27 +41,40 @@ public class HandleControllerAdvice {
 		fieldErrors.forEach(fieldError -> {
 			String field = fieldError.getField();
 			String mensajeError = fieldError.getDefaultMessage();
-			if(TipoErrores.containsTipoError(field, TipoErrores.MANDATORY)) {
-				mandatoryValidaciones.add(ErroresMandatory.parseToErrorValicacion(mensajeError));
-			}
-			else if(TipoErrores.containsTipoError(field, TipoErrores.DOMAIN)) {
-				domainValidaciones.add(ErroresDomain.parseToErrorValicacion(mensajeError));
-			}
-			else {
-				validacionesNoCategorizadas.add(mensajeError);
-			}
+			poblarColaErrores(mandatoryValidaciones, domainValidaciones, validacionesNoCategorizadas, field,
+					mensajeError);
 			
 		});
 		
-		if(CollectionUtils.isNotEmpty(mandatoryValidaciones)) {
-			return ResponseEntity.badRequest().body(mandatoryValidaciones);
-		}
-		else if(CollectionUtils.isNotEmpty(domainValidaciones)) {
-			return ResponseEntity.unprocessableEntity().body(domainValidaciones);
-			
-		}
+		return retornarErrorDeValidaciones(mandatoryValidaciones, domainValidaciones, validacionesNoCategorizadas);
+	}
+	
+
+
+	@ExceptionHandler(HandlerMethodValidationException.class)
+	public ResponseEntity<?> handleValidations(HandlerMethodValidationException  ex){
+		List<ErrorValidacion> mandatoryValidaciones =  new ArrayList<>();
+		List<ErrorValidacion> domainValidaciones =  new ArrayList<>();
+		List<String> validacionesNoCategorizadas = new ArrayList<>();
 		
-		return ResponseEntity.unprocessableEntity().body(validacionesNoCategorizadas);
+		List<ParameterValidationResult> violaciones = ex.getAllValidationResults();
+		
+		
+		
+		violaciones.forEach(violacion -> {
+
+			for (MessageSourceResolvable resultado : violacion.getResolvableErrors()) {
+				String mensajeError = resultado.getDefaultMessage();
+				
+				for(String validacionTipo :resultado.getCodes())
+					poblarColaErrores(mandatoryValidaciones, domainValidaciones, validacionesNoCategorizadas,
+							validacionTipo, mensajeError);
+			}
+			
+			
+		});
+		
+		return retornarErrorDeValidaciones(mandatoryValidaciones, domainValidaciones, validacionesNoCategorizadas);
 	}
 	
 	/**
@@ -82,18 +95,34 @@ public class HandleControllerAdvice {
 			String ruta = violacion.getPropertyPath().toString();
 			String mensajeError = violacion.getMessage();
 			
-			if(TipoErrores.containsTipoError(ruta, TipoErrores.MANDATORY)) {
-				mandatoryValidaciones.add(ErroresMandatory.parseToErrorValicacion(mensajeError));
-			}
-			else if(TipoErrores.containsTipoError(ruta, TipoErrores.DOMAIN)) {
-				domainValidaciones.add(ErroresDomain.parseToErrorValicacion(mensajeError));
-			}
-			else {
-				validacionesNoCategorizadas.add(mensajeError);
-			}
+			poblarColaErrores(mandatoryValidaciones, domainValidaciones, validacionesNoCategorizadas, ruta,
+					mensajeError);
 			
 		});
 		
+		return retornarErrorDeValidaciones(mandatoryValidaciones, domainValidaciones, validacionesNoCategorizadas);
+	}
+
+
+
+	private void poblarColaErrores(List<ErrorValidacion> mandatoryValidaciones,
+			List<ErrorValidacion> domainValidaciones, List<String> validacionesNoCategorizadas, String ruta,
+			String mensajeError) {
+		if(TipoErrores.containsTipoError(ruta, TipoErrores.MANDATORY)) {
+			mandatoryValidaciones.add(ErroresMandatory.parseToErrorValicacion(mensajeError));
+		}
+		else if(TipoErrores.containsTipoError(ruta, TipoErrores.DOMAIN)) {
+			domainValidaciones.add(ErroresDomain.parseToErrorValicacion(mensajeError));
+		}
+		else {
+			validacionesNoCategorizadas.add(mensajeError);
+		}
+	}
+
+
+
+	private ResponseEntity<?> retornarErrorDeValidaciones(List<ErrorValidacion> mandatoryValidaciones,
+			List<ErrorValidacion> domainValidaciones, List<String> validacionesNoCategorizadas) {
 		if(CollectionUtils.isNotEmpty(mandatoryValidaciones)) {
 			return ResponseEntity.badRequest().body(mandatoryValidaciones);
 		}
@@ -103,49 +132,6 @@ public class HandleControllerAdvice {
 		
 		return ResponseEntity.unprocessableEntity().body(validacionesNoCategorizadas);
 	}
-
-	@ExceptionHandler(HandlerMethodValidationException.class)
-	public ResponseEntity<?> handleValidations(HandlerMethodValidationException  ex){
-		List<ErrorValidacion> mandatoryValidaciones =  new ArrayList<>();
-		List<ErrorValidacion> domainValidaciones =  new ArrayList<>();
-		List<String> validacionesNoCategorizadas = new ArrayList<>();
-		
-		List<ParameterValidationResult> violaciones = ex.getAllValidationResults();
-		
-		
-		
-		violaciones.forEach(violacion -> {
-
-			for (MessageSourceResolvable resultado : violacion.getResolvableErrors()) {
-				String mensajeError = resultado.getDefaultMessage();
-				
-				for(String validacionTipo :resultado.getCodes())
-
-				
-				if(TipoErrores.containsTipoError(validacionTipo, TipoErrores.MANDATORY)) {
-					mandatoryValidaciones.add(ErroresMandatory.parseToErrorValicacion(mensajeError));
-				}
-				else if(TipoErrores.containsTipoError(validacionTipo, TipoErrores.DOMAIN)) {
-					domainValidaciones.add(ErroresDomain.parseToErrorValicacion(mensajeError));
-				}
-				else {
-					validacionesNoCategorizadas.add(mensajeError);
-				}
-			}
-			
-			
-		});
-		
-		if(CollectionUtils.isNotEmpty(mandatoryValidaciones)) {
-			return ResponseEntity.badRequest().body(mandatoryValidaciones);
-		}
-		else if(CollectionUtils.isNotEmpty(domainValidaciones)) {
-			return ResponseEntity.unprocessableEntity().body(domainValidaciones);
-		}
-		
-		return ResponseEntity.unprocessableEntity().body(validacionesNoCategorizadas);
-	}
-	
 	
 	
 }
