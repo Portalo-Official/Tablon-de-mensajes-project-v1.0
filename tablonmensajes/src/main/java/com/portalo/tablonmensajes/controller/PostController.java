@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.portalo.tablonmensajes.model.dto.response.PostDetailDTO;
 import com.portalo.tablonmensajes.model.validation.domain.ReferenciaDomain;
+import com.portalo.tablonmensajes.service.post.PostDomainService;
 import com.portalo.tablonmensajes.service.post.PostQueryService;
 
 import jakarta.validation.Valid;
@@ -21,7 +22,7 @@ import lombok.AllArgsConstructor;
 @RequestMapping("posts")
 public class PostController {
 	
-	private final PostQueryService postService;
+	private final PostDomainService postDomain;
 	
 	/**
 	 * <h1>REQ_P_001 Consultar Post por Referencia</h1>
@@ -32,7 +33,7 @@ public class PostController {
 			@PathVariable("post_referencia") String postReferencia
 			) {
 		
-		PostDetailDTO post = postService.buscarPostPorReferencia(postReferencia);
+		PostDetailDTO post = postDomain.consultarPorReferencia(postReferencia);
 		
 		return ResponseEntity.ok(post);
 	}
